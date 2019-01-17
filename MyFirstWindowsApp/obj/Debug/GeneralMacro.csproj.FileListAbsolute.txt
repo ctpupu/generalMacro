@@ -1,7 +1,6 @@
 C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\bin\Debug\GeneralMacro.exe.config
 C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\bin\Debug\GeneralMacro.exe
 C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\bin\Debug\GeneralMacro.pdb
-C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\obj\Debug\GeneralMacro.csprojAssemblyReference.cache
 C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\obj\Debug\GeneralMacro.DATA.resources
 C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\obj\Debug\GeneralMacro.loadForm.resources
 C:\Users\tchin\Downloads\program\screenAnalyze\MyFirstWindowsApp\MyFirstWindowsApp\obj\Debug\GeneralMacro.newForm.resources
