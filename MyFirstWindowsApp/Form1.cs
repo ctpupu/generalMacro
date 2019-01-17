@@ -16,22 +16,6 @@ using GlobalLowLevelHooks;
 
 namespace GeneralMacro
 {
-    public class DATA
-    {
-        
-    }
-
-    public class INFO
-    {
-        public string fileName;
-        public string AppName;
-    }
-
-    public class COMMAND
-    {
-
-    }
-
     public partial class Form1 : Form
     {
         private Thread loopThread;
@@ -40,9 +24,12 @@ namespace GeneralMacro
         private KeyboardHook kHook;
         private INFO info;
         private DATA data;
-        private COMMAND command;
+        private ACTION action;
+        private CONDITION condition;
 
-        private bool playClicker = false;
+        private Form targetForm;
+
+        //private bool playClicker = false;
 
         public Form1()
         {
@@ -88,27 +75,37 @@ namespace GeneralMacro
 
         private void OnSelectApp(MouseHook.MSLLHOOKSTRUCT mStruct)
         {
-            Debug.WriteLine("mouse down");
-            Debug.WriteLine(AppInfo.AppInfo.GetForegroundAppName());
-        }
-
-        private void OnKeyDown(KeyboardHook.VKeys key)
-        {
-            switch(key)
+            string appName = AppInfo.AppInfo.GetForegroundAppName();
+            string curName = System.Reflection.Assembly.GetCallingAssembly().GetName().Name;
+            
+            if(appName != curName)
             {
-                case KeyboardHook.VKeys.KEY_A:
-                    playClicker = true;
-                    //MouseClicker();
-                    break;
-                case KeyboardHook.VKeys.KEY_S:
-                    playClicker = false;
-                    break;
+                mHook.Uninstall();
+                mHook = null;
+
+                info.AppName = appName;
+                //targetForm.Dispose();
+                //loopThread.Interrupt();
             }
         }
 
+        //private void OnKeyDown(KeyboardHook.VKeys key)
+        //{
+        //    switch (key)
+        //    {
+        //        case KeyboardHook.VKeys.KEY_A:
+        //            playClicker = true;
+        //            //MouseClicker();
+        //            break;
+        //        case KeyboardHook.VKeys.KEY_S:
+        //            playClicker = false;
+        //            break;
+        //    }
+        //}
+
         private void StartMacro()
         {
-            if(loopThread!=null && loopThread.IsAlive)
+            if (loopThread != null && loopThread.IsAlive)
             {
                 return;
             }
@@ -120,17 +117,24 @@ namespace GeneralMacro
         {
             while (true)
             {
-                if(info == null || data == null || command == null)
+                if (info == null || data == null || action == null)
                 {
                     break;
                 }
 
-                if(string.IsNullOrEmpty(info.AppName))
+                if (string.IsNullOrEmpty(info.AppName))
                 {
+                    //targetForm = new BlockerForm("Choose App to run Macro");
+                    //targetForm.ShowDialog();
+                    
                     mHook = new MouseHook();
                     mHook.LeftButtonUp += new MouseHook.MouseHookCallback(OnSelectApp);
                     mHook.Install();
-                    MessageBox.Show("Select Target App");
+
+                    MessageBox.Show("Choose target app");
+                    //System.Threading.Thread.Sleep(Timeout.Infinite);
+
+
                 }
 
                 System.Threading.Thread.Sleep(100);
@@ -155,10 +159,10 @@ namespace GeneralMacro
                             info.fileName = path;
                             continue;
                         }
-                        else if (line == "[Command]")
+                        else if (line == "[Action]")
                         {
-                            mode = "command";
-                            command = new COMMAND();
+                            mode = "action";
+                            action = new ACTION();
                             continue;
                         }
                         else if (line == "[Data]")
@@ -167,14 +171,22 @@ namespace GeneralMacro
                             data = new DATA();
                             continue;
                         }
+                        else if (line == "[Condition]")
+                        {
+                            mode = "condition";
+                            condition = new CONDITION();
+
+                        }
 
                         switch (mode)
                         {
                             case "info":
                                 break;
-                            case "command":
+                            case "action":
                                 break;
                             case "data":
+                                break;
+                            case "condition":
                                 break;
                             default: break;
                         }
@@ -196,7 +208,7 @@ namespace GeneralMacro
             if (!string.IsNullOrEmpty(msg))
             {
                 string[] split = msg.Split('|');
-                switch(split[0])
+                switch (split[0])
                 {
                     case "newfile":
                         ReadData(split[1]);
@@ -208,7 +220,28 @@ namespace GeneralMacro
                         break;
                 }
             }
-            
+
         }
+    }
+
+    public class DATA
+    {
+
+    }
+
+    public class INFO
+    {
+        public string fileName;
+        public string AppName;
+    }
+
+    public class ACTION
+    {
+
+    }
+
+    public class CONDITION
+    {
+
     }
 }

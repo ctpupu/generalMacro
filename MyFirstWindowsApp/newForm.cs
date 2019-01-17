@@ -30,7 +30,8 @@ namespace GeneralMacro
             {
                 sw.WriteLine("[Info]");
                 sw.WriteLine("[Data]");
-                sw.WriteLine("[Command]");
+                sw.WriteLine("[Action]");
+                sw.WriteLine("[Condition]");
                 sw.Close();
             }
             mainForm.MsgFromOther("newfile|" + tbName.Text + ".txt");
