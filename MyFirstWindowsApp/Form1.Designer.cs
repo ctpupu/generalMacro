@@ -1,4 +1,4 @@
-﻿namespace MyFirstWindowsApp
+﻿namespace GeneralMacro
 {
     partial class Form1
     {

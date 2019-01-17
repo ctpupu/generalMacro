@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{31BC44FF-A495-427B-B605-2A6E656E36DF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MyFirstWindowsApp</RootNamespace>
-    <AssemblyName>MyFirstWindowsApp</AssemblyName>
+    <RootNamespace>GeneralMacro</RootNamespace>
+    <AssemblyName>GeneralMacro</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>GeneralMacro.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,11 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInfo.cs" />
     <Compile Include="KeyboardHook.cs" />
-    <Compile Include="MouseHook.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="loadForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="loadForm.Designer.cs">
+      <DependentUpon>loadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MouseHook.cs" />
+    <Compile Include="Form1.cs" />
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -67,6 +75,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="loadForm.resx">
+      <DependentUpon>loadForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="newForm.resx">
       <DependentUpon>newForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -78,6 +89,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
